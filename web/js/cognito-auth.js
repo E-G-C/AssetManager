@@ -13,8 +13,8 @@ var AssetManager = window.AssetManager || {};
     var userPool;
 
     if (!(_config.cognito.userPoolId &&
-          _config.cognito.userPoolClientId &&
-          _config.cognito.region)) {
+        _config.cognito.userPoolClientId &&
+        _config.cognito.region)) {
         $('#noCognitoMessage').show();
         return;
     }
@@ -170,4 +170,6 @@ var AssetManager = window.AssetManager || {};
             }
         );
     }
+
 }(jQuery));
+

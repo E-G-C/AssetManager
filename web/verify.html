@@ -5,11 +5,6 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
 
-    <!--<link rel="stylesheet" href="css/font.css">-->
-    <!--<link rel="stylesheet" href="css/normalize.css">-->
-    <!--<link rel="stylesheet" href="css/index.css">-->
-    <!--<link rel="stylesheet" href="/css/message.css">-->
-
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/navbar-style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -59,40 +54,39 @@
         </ul>
 
         <ul class="list-unstyled CTAs">
-            <li><a href="#"  id="sign-out"  class="download">Sign Out</a></li>
+            <li><a href="#" id="sign-out" class="download">Sign Out</a></li>
         </ul>
     </nav>
 
     <!-- Page Content Holder -->
     <div id="content">
-        <div class="container">
-            <div class="line"></div>
-            <section class="form-wrap">
 
-                <div class="panel-primary">
-                    <div class="panel-heading">Verify Email</div>
-                </div>
-                <div class="panel-body well">
-                    <form id="verifyForm">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                            <input type="email" id="emailInputVerify" placeholder="Email" required class="form-control">
-                        </div>
-                        <br>
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-hashtag"></i></span>
-                            <input type="text" id="codeInputVerify" placeholder="Verification Code" pattern=".*"
-                                   required class="form-control">
-                        </div>
-                        <br>
-                        <input type="submit" value="Verify" class="btn btn-primary">
-                    </form>
-                </div>
-            </section>
-            <div class="line"></div>
+        <div class="line"></div>
+        <section class="form-wrap">
 
-        </div>
+            <div class="panel-primary">
+                <div class="panel-heading">Verify Email</div>
+            </div>
+            <div class="panel-body well">
+                <form id="verifyForm">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                        <input type="email" id="emailInputVerify" placeholder="Email" required class="form-control">
+                    </div>
+                    <br>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-hashtag"></i></span>
+                        <input type="text" id="codeInputVerify" placeholder="Verification Code" pattern=".*"
+                               required class="form-control">
+                    </div>
+                    <br>
+                    <input type="submit" value="Verify" class="btn btn-primary">
+                </form>
+            </div>
+        </section>
+        <div class="line"></div>
 
+    </div>
     </div>
 
 </body>
