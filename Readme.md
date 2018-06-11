@@ -33,6 +33,10 @@ The Asset Manager app is built on top of AWS, the services used are
 
     -   Allows the user-based authorization and authentication.
 
+Flow example:
+----
+![](media/upload_flow.png)
+
 Front end
 ---------
 
