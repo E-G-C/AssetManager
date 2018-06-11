@@ -85,43 +85,30 @@ In this page the user has four main areas:
 
 Backend We call the backend api using ajax requests, in this form:
 
-function delete_file(file_id) {
+```
+                function delete_file(file_id) {
+                    var full_url = delete_file_endpoint + '?file_id=' + file_id;
 
-var full_url = delete_file_endpoint + '?file_id=' + file_id;
+                    $.ajax({
+                        url: full_url,
+                        type: 'DELETE',
+                        crossDomain: true,
+                        headers: {'Authorization': $('#token-area').val()},
 
-\$.ajax({
+                        success: function (result) {
+                            if (result.success) {
+                                console.log('' + result.message);
+                                refresh_s3_table();
+                            }
+                        }
+                        ,
+                        error: function (error) {
+                            console.log(error)
+                        }
+                    });
 
-url: full_url,
+                }
 
-type: 'DELETE',
-
-crossDomain: true,
-
-headers: {'Authorization': \$('\#token-area').val()},
-
-success: function (result) {
-
-if (result.success) {
-
-console.log('' + result.message);
-
-refresh_s3_table();
-
-}
-
-}
-
-,
-
-error: function (error) {
-
-console.log(error)
-
-}
-
-});
-
-}
-
+```
 Where the 'Authorization' header is the Token to authorize the call, refer to
 the backend documentation
