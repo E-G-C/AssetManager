@@ -59,7 +59,7 @@
         </ul>
 
         <ul class="list-unstyled CTAs">
-            <li><a href="signin.html"  id="sign-out"  class="download">Sign Out</a></li>
+            <li><a href="#"  onclick="signOutUser()" id="sign-out"  class="download">Sign Out</a></li>
         </ul>
     </nav>
 
@@ -138,6 +138,10 @@
             <div class="line"></div>
 
             <script type="text/javascript">
+                function signOutUser() {
+                    AssetManager.signOut();
+                    window.location = 'signin.html'
+                }
 
 
                 var get_upload_url_endpoint = 'https://7slwjngjo4.execute-api.us-east-1.amazonaws.com/dev/get_upload_url';
@@ -196,7 +200,6 @@
                 };
 
                 function download_file(file_id) {
-                    // var get_download_url_endpoint = 'https://7slwjngjo4.execute-api.us-east-1.amazonaws.com/dev/get_download_url';
                     var full_url = get_download_url_endpoint + '?file_id=' + file_id;
                     console.log('Id of the file is ' + file_id);
 
