@@ -37,7 +37,7 @@ Flow example:
 ----
 ![](media/upload_flow.png)
 
-Front end
+Frontend
 ---------
 
 In the frontend I use Boostrap and javascript. There are five pages in total.
