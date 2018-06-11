@@ -1,9 +1,9 @@
 ---
-title: Summary
+Summary
 ---
 
 The Asset (file) Manager app is made up of a static web frontend with lambda
-functions serving the request in the backend.
+functions serving the backend.
 
 The user will land in the index.html and from there proceed to register. It
 needs to register with a real l address since it will email a verification code
