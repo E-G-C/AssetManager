@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/navbar-style.css">
+
+    <script src="js/vendor/jquery-3.1.0.js"></script>
+    <script src="js/vendor/bootstrap.min.js"></script>
+    <script src="js/vendor/aws-cognito-sdk.min.js"></script>
+    <script src="js/vendor/amazon-cognito-identity.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/cognito-auth.js"></script>
+
+
+</head>
+<body>
+
+
+<div class="wrapper">
+
+
+    <!-- Sidebar Holder -->
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <h3>Asset Manager</h3>
+        </div>
+
+        <ul class="list-unstyled components">
+            <li class="active">
+                <a href="index.html">Home</a>
+            </li>
+            <li class="active">
+                <a href="signin.html">Sign In</a>
+            </li>
+
+            <li class="active">
+                <a href="asset-manager.html">Asset Manager</a>
+            </li>
+            <li class="active">
+                <a>Account</a>
+            </li>
+
+            <li class="active">
+                <a href="register.html">&nbsp; &nbsp; - Register</a>
+            </li>
+            <li class="active">
+                <a href="verify.html">&nbsp; &nbsp; - Verify</a>
+            </li>
+
+        </ul>
+
+        <ul class="list-unstyled CTAs">
+            <li><a href="#"  id="sign-out"   class="download">Sign Out</a></li>
+        </ul>
+    </nav>
+
+    <!-- Page Content Holder -->
+    <div id="content">
+        <div class="line"></div>
+        <section class="form-wrap">
+            <div class="panel-primary">
+                <div class="panel-heading">Sign In</div>
+            </div>
+            <div class="panel-body well">
+            <form id="signinForm">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                <input type="email" id="emailInputSignin" placeholder="Email" required class="form-control">
+                </div><br>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                <input type="password" id="passwordInputSignin" placeholder="Password" pattern=".*" required class="form-control">
+                </div><br>
+                <input type="submit" value="Sign in" class="btn btn-primary">
+                <br>
+            </form>
+            </div>
+        </section>
+
+        <div class="line"></div>
+    </div>
+</div>
+
+
+</body>
+</html>

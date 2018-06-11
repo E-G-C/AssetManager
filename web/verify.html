@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+
+    <!--<link rel="stylesheet" href="css/font.css">-->
+    <!--<link rel="stylesheet" href="css/normalize.css">-->
+    <!--<link rel="stylesheet" href="css/index.css">-->
+    <!--<link rel="stylesheet" href="/css/message.css">-->
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/navbar-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    <script src="js/vendor/jquery-3.1.0.js"></script>
+    <script src="js/vendor/bootstrap.min.js"></script>
+    <script src="js/vendor/aws-cognito-sdk.min.js"></script>
+    <script src="js/vendor/amazon-cognito-identity.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/cognito-auth.js"></script>
+
+</head>
+<body>
+
+<div class="wrapper">
+
+
+    <!-- Sidebar Holder -->
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <h3>Asset Manager</h3>
+        </div>
+
+        <ul class="list-unstyled components">
+            <li class="active">
+                <a href="index.html">Home</a>
+            </li>
+            <li class="active">
+                <a href="signin.html">Sign In</a>
+            </li>
+
+            <li class="active">
+                <a href="asset-manager.html">Asset Manager</a>
+            </li>
+            <li class="active">
+                <a>Account</a>
+            </li>
+
+            <li class="active">
+                <a href="register.html">&nbsp; &nbsp; - Register</a>
+            </li>
+            <li class="active">
+                <a href="verify.html">&nbsp; &nbsp; - Verify</a>
+            </li>
+
+        </ul>
+
+        <ul class="list-unstyled CTAs">
+            <li><a href="#"  id="sign-out"  class="download">Sign Out</a></li>
+        </ul>
+    </nav>
+
+    <!-- Page Content Holder -->
+    <div id="content">
+        <div class="container">
+            <div class="line"></div>
+            <section class="form-wrap">
+
+                <div class="panel-primary">
+                    <div class="panel-heading">Verify Email</div>
+                </div>
+                <div class="panel-body well">
+                    <form id="verifyForm">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                            <input type="email" id="emailInputVerify" placeholder="Email" required class="form-control">
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-hashtag"></i></span>
+                            <input type="text" id="codeInputVerify" placeholder="Verification Code" pattern=".*"
+                                   required class="form-control">
+                        </div>
+                        <br>
+                        <input type="submit" value="Verify" class="btn btn-primary">
+                    </form>
+                </div>
+            </section>
+            <div class="line"></div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

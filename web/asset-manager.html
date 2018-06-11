@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title>Asset Manager</title>
+
+    <link rel="stylesheet" href="css/navbar-style.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/file-input.css">
+
+    <script src="js/vendor/jquery-3.1.0.js"></script>
+    <script src="js/vendor/bootstrap.min.js"></script>
+    <script src="js/vendor/aws-cognito-sdk.min.js"></script>
+    <script src="js/vendor/amazon-cognito-identity.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/cognito-auth.js"></script>
+    <script src="js/asset-manager.js"></script>
+    <script src="js/file-input.js"></script>
+
+
+</head>
+
+<body>
+
+
+<div class="wrapper">
+
+
+    <!-- Sidebar Holder -->
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <h3>Asset Manager</h3>
+        </div>
+
+        <ul class="list-unstyled components">
+            <li class="active">
+                <a href="index.html">Home</a>
+            </li>
+            <li class="active">
+                <a href="signin.html">Sign In</a>
+            </li>
+
+            <li class="active">
+                <a href="asset-manager.html">Asset Manager</a>
+            </li>
+            <li class="active">
+                <a>Account</a>
+            </li>
+
+            <li class="active">
+                <a href="register.html">&nbsp; &nbsp; - Register</a>
+            </li>
+            <li class="active">
+                <a href="verify.html">&nbsp; &nbsp; - Verify</a>
+            </li>
+
+        </ul>
+
+        <ul class="list-unstyled CTAs">
+            <li><a href="#" id="sign-out"  class="download">Sign Out</a></li>
+        </ul>
+    </nav>
+
+    <!-- Page Content Holder -->
+    <div id="content">
+
+        <div class="line"></div>
+
+        <div class="container">
+            <div class="panel-primary">
+                <div class="panel-heading">Token</div>
+            </div>
+
+
+            <div class="panel-body well"><textarea readonly id="token-area" class="form-control" class="authToken"></textarea>
+            </div>
+
+            <div class="line"></div>
+            <div class="panel-primary">
+                <div class="panel-heading">Upload Feature</div>
+            </div>
+
+
+            <div class="panel-body well">
+
+                <div class="row ">
+
+                    <div>
+
+                        <div class="input-group">
+                <span class="input-group-btn">
+                    <span class="btn btn-primary btn-file">
+                        Browse&hellip; <input type="file" id="selected-file">
+                    </span>
+                </span>
+                            <input type="text" class="form-control" readonly
+                                   placeholder="Select a File then click below to upload it">
+                        </div>
+                        <br>
+                        <button type="button" id="upload-file-btn" class="btn btn-primary"><span
+                                class="glyphicon glyphicon-upload">&nbsp;</span>Upload
+                        </button>
+                    </div>
+                </div>
+
+                <div id="alert_placeholder"></div>
+            </div>
+            <div class="line"></div>
+            <div class="panel-primary">
+                <div class="panel-heading">Download Feature</div>
+                <div class="panel-body well">
+                    <br>
+                    <div class="input-group" style="width:20%">
+                        <input type="text" class="form-control" placeholder="File Id" id="file_id">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" id="download-btn"><i
+                                    class="glyphicon glyphicon-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="line"></div>
+            <div class="panel-primary">
+                <div class="panel-heading">Listing Feature</div>
+
+                <div class="panel-body well">
+                    <button class="btn btn-default" id="refresh-list-btn"><i
+                            class="glyphicon glyphicon-refresh"></i>
+                    </button>
+                    <div class="row col-md-6 col-md-offset-2 custyle" id="s3-table">
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="line"></div>
+
+            <script type="text/javascript">
+
+
+                var get_upload_url_endpoint = 'https://7slwjngjo4.execute-api.us-east-1.amazonaws.com/dev/get_upload_url';
+                var delete_file_endpoint = ' https://7slwjngjo4.execute-api.us-east-1.amazonaws.com/dev/delete_file';
+                var get_bucket_ls_endpoint = 'https://7slwjngjo4.execute-api.us-east-1.amazonaws.com/dev/get_bucket_ls';
+                var get_download_url_endpoint = 'https://7slwjngjo4.execute-api.us-east-1.amazonaws.com/dev/get_download_url';
+
+
+                document.getElementById('upload-file-btn').addEventListener('click', function () {
+                    console.log('click received');
+                    var files_input_value = document.getElementById('selected-file').files;
+                    if (files_input_value.length > 0) {
+                        // var get_upload_url_endpoint = 'https://7slwjngjo4.execute-api.us-east-1.amazonaws.com/dev/get_upload_url';
+                        var selected_file = files_input_value[0];
+
+                        $.ajax({
+                            url: get_upload_url_endpoint + '?' + 'file_name=' + selected_file.name,
+                            type: 'GET',
+                            crossDomain: true,
+                            headers: {'Authorization': $('#token-area').val()},
+
+                            success: function (result) {
+                                if (result.success) {
+                                    console.log('received url ' + result.url);
+                                    console.log('starting upload');
+                                    fetch(result.url, {
+                                        method: 'PUT',
+                                        headers: {
+                                            'Content-Type': 'binary/octet-stream'
+                                        },
+                                        processData: false,
+                                        body: selected_file
+                                    }).then(function () {
+                                        bootstrap_alert.success(result.file_id);
+                                        refresh_s3_table();
+                                    });
+                                }
+                            }
+                            ,
+                            error: function (error) {
+                            }
+                        });
+
+
+                    }
+
+                });
+
+
+                bootstrap_alert = function () {
+                };
+                bootstrap_alert.success = function (message) {
+                    $('#alert_placeholder').html('<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><span><strong>Success!</strong>The File id (token) is <strong>' + message + '</strong></span> use this id when requesting a download below</div>')
+
+                };
+
+                function download_file(file_id) {
+                    // var get_download_url_endpoint = 'https://7slwjngjo4.execute-api.us-east-1.amazonaws.com/dev/get_download_url';
+                    var full_url = get_download_url_endpoint + '?file_id=' + file_id;
+                    console.log('Id of the file is ' + file_id);
+
+
+                    $.ajax({
+                        url: full_url,
+                        type: 'GET',
+                        crossDomain: true,
+                        headers: {'Authorization': $('#token-area').val()},
+
+                        success: function (result) {
+                            if (result.success) {
+                                console.log('received download url ' + result.url);
+                                window.location = result.url;
+                            }
+                        }
+                        ,
+                        error: function (error) {
+                        }
+                    });
+
+                }
+
+                document.getElementById('download-btn').addEventListener('click', function () {
+
+                        var file_id = $('#file_id').val();
+
+                        download_file(file_id);
+                    }
+                );
+
+                if (!String.format) {
+                    String.format = function (format) {
+                        var args = Array.prototype.slice.call(arguments, 1);
+                        return format.replace(/{(\d+)}/g, function (match, number) {
+                            return typeof args[number] != 'undefined'
+                                ? args[number]
+                                : match
+                                ;
+                        });
+                    };
+                }
+
+
+                function delete_file(file_id) {
+                    // var delete_file_endpoint = ' https://7slwjngjo4.execute-api.us-east-1.amazonaws.com/dev/delete_file';
+                    var full_url = delete_file_endpoint + '?file_id=' + file_id;
+                    console.log('Id of the file is ' + file_id);
+
+
+                    $.ajax({
+                        url: full_url,
+                        type: 'DELETE',
+                        crossDomain: true,
+                        headers: {'Authorization': $('#token-area').val()},
+
+                        success: function (result) {
+                            if (result.success) {
+                                console.log('' + result.message);
+                                refresh_s3_table();
+                            }
+                        }
+                        ,
+                        error: function (error) {
+                        }
+                    });
+
+                }
+
+
+                function refresh_s3_table() {
+                    console.log('table refresh begins')
+                    // var get_bucket_ls_endpoint = 'https://7slwjngjo4.execute-api.us-east-1.amazonaws.com/dev/get_bucket_ls';
+                    $.ajax({
+                        url: get_bucket_ls_endpoint,
+                        type: 'GET',
+                        crossDomain: true,
+                        headers: {'Authorization': $('#token-area').val()},
+
+                        success: function (result) {
+                            if (result.success) {
+
+                                console.log('delete payload  ' + result.payload);
+
+                                var s3_objects = jQuery.parseJSON(result.payload);
+
+                                var row_template = '                            <tr>\n' +
+                                    '                                <td>{0}</td>\n' +
+                                    '                                <td>{1}</td>\n' +
+                                    '                                <td>{2}</td>\n' +
+                                    '                                <td class="text-center"><a class=\'btn btn-info btn-xs\' href="#" onclick="download_file({1})"><span\n' +
+                                    '                                        class="glyphicon glyphicon-download" ></span> Download</a> <a href="#"\n' +
+                                    '                                                                                                     class="btn btn-danger btn-xs" onclick="delete_file({1})"><span\n' +
+                                    '                                        class="glyphicon glyphicon-remove"></span> Del</a></td>\n' +
+                                    '                            </tr>';
+                                var full_table = '\n' +
+                                    '                        <table class="table table-striped custab">\n' +
+                                    '                            <thead>\n' +
+                                    '\n' +
+                                    '                            <tr>\n' +
+                                    '                                <th>Filename</th>\n' +
+                                    '                                <th>File ID</th>\n' +
+                                    '                                <th>Size</th>\n' +
+                                    '                                <th class="text-center">Action</th>\n' +
+                                    '                            </tr>\n' +
+                                    '                            </thead>\n';
+                                $('#s3-table').html('full_table');
+                                for (var someIndex in s3_objects) {
+                                    var s3_object = s3_objects[someIndex]
+                                    full_table = full_table.concat(String.format(row_template, s3_object.file_name, s3_object.file_id, s3_object.size, s3_object.file_id));
+                                    console.log(s3_objects[someIndex]);
+                                }
+                                $('#s3-table').html(full_table.concat('</table>'));
+
+                            }
+                        }
+                        ,
+                        error: function (error) {
+                        }
+                    });
+                }
+
+                document.getElementById('refresh-list-btn').addEventListener('click', function () {
+
+
+                    refresh_s3_table();
+
+
+                });
+
+
+                $(document).ready(function () {
+
+                    refresh_s3_table();
+
+                });
+
+
+            </script>
+
+
+        </div>
+
+    </div>
+</body>
+
+</html>
