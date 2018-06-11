@@ -23,7 +23,7 @@ The Asset Manager app is built on top of AWS, the services used are
 
 -   Lambda
 
-    -   Implements the service operations
+    -   Implements the service operations, four lambdas are used. signed_upload, signed_download, get_list, delete. These are located under the "backend" folder the upload.py files contains an custom implementation to upload a file but it falles short compared with the used and final approach of using signed url.
 
 -   API Gateway
 
