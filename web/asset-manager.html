@@ -59,14 +59,12 @@
         </ul>
 
         <ul class="list-unstyled CTAs">
-            <li><a href="#" id="sign-out"  class="download">Sign Out</a></li>
+            <li><a href="signin.html"  id="sign-out"  class="download">Sign Out</a></li>
         </ul>
     </nav>
 
     <!-- Page Content Holder -->
     <div id="content">
-
-        <div class="line"></div>
 
         <div class="container">
             <div class="panel-primary">
@@ -180,6 +178,7 @@
                             }
                             ,
                             error: function (error) {
+                                console.log(error)
                             }
                         });
 
@@ -216,6 +215,7 @@
                         }
                         ,
                         error: function (error) {
+                            console.log(error)
                         }
                     });
 
@@ -243,10 +243,7 @@
 
 
                 function delete_file(file_id) {
-                    // var delete_file_endpoint = ' https://7slwjngjo4.execute-api.us-east-1.amazonaws.com/dev/delete_file';
                     var full_url = delete_file_endpoint + '?file_id=' + file_id;
-                    console.log('Id of the file is ' + file_id);
-
 
                     $.ajax({
                         url: full_url,
@@ -262,6 +259,7 @@
                         }
                         ,
                         error: function (error) {
+                            console.log(error)
                         }
                     });
 

@@ -14,9 +14,6 @@ var AssetManager = window.AssetManager || {};
     });
 
     $(function onDocReady() {
-        document.getElementById('sign-out').addEventListener('click', function () {
-            AssetManager.signOut();
-        });
 
 
         AssetManager.authToken.then(function displayToken(token) {

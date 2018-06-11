@@ -7,6 +7,7 @@
     <title>Asset Manager</title>
     <link rel="stylesheet" href="css/navbar-style.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
+
     <script src="js/vendor/jquery-3.1.0.js"></script>
     <script src="js/vendor/bootstrap.min.js"></script>
 </head>
@@ -45,15 +46,25 @@
         </ul>
 
         <ul class="list-unstyled CTAs">
-            <li><a href="#"  id="sign-out"  class="download">Sign Out</a></li>
+            <li><a href="signin.html" id="sign-out" class="download">Sign Out</a></li>
         </ul>
     </nav>
     <!-- Page Content Holder -->
     <div id="content">
-        <p>hello</p>
-        <div class="line"></div>
+        <h1> Summary</h1>
+        <p>The Asset (file) Manager app is as proof of concept for a serverless app. I put his together during a weekend as per "certain request" ;) <br>
+           </p>
+        <p>Head over the <a href="https://github.com/E-G-C/AssetManager/blob/master/Readme.md">  Asset Manager's Readme page</a> in GitGub for detailed documentation </p>
+        <p>To Begin choose an option from the menu on the left</p>
+
+
     </div>
 </div>
 
 </body>
+<script src="js/vendor/aws-cognito-sdk.min.js"></script>
+<script src="js/vendor/amazon-cognito-identity.min.js"></script>
+<script src="js/config.js"></script>
+<script src="js/cognito-auth.js"></script>
+
 </html>
